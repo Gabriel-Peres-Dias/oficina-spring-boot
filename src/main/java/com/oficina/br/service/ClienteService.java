@@ -43,12 +43,13 @@ public class ClienteService {
 
         var clienteSalvo = clienteRepository.save(cliente);
         clienteDTO.setId(clienteSalvo.getId());
+        clienteDTO.setAtivo(clienteDTO.isAtivo());
         clienteDTO.getEnderecoDTO().setId((enderecoService.salvarEndereco(clienteDTO.getEnderecoDTO(), clienteSalvo, null).getId()));
         return clienteDTO;
     }
 
     @Transactional
-    public void desativarCliente(Long id) {
+    public void desativarClientePorId(Long id) {
         clienteRepository.desativarCliente(id);
     }
 

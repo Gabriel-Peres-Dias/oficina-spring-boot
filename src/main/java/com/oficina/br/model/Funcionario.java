@@ -1,5 +1,6 @@
 package com.oficina.br.model;
 
+import com.oficina.br.dto.FuncionarioDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,13 @@ public class Funcionario {
     private String cpf;
     private String matricula;
     private boolean ativo;
+
+    public Funcionario(FuncionarioDTO funcionarioDTO) {
+        if (funcionarioDTO.getId() != null) this.id = funcionarioDTO.getId();
+        this.nome = funcionarioDTO.getNome();
+        this.email = funcionarioDTO.getEmail();
+        this.cpf = funcionarioDTO.getCpf();
+        this.matricula = funcionarioDTO.getMatricula();
+        this.ativo = funcionarioDTO.isAtivo();
+    }
 }

@@ -43,7 +43,7 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> desativarCliente(@PathVariable Long id) {
-        clienteService.desativarCliente(id);
+        clienteService.desativarClientePorId(id);
         return ResponseEntity.noContent().build();
     }
 }

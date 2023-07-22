@@ -45,6 +45,7 @@ public class Endereco {
     }
 
     public Endereco(EnderecoDTO dto, Funcionario funcionario) {
+        if (dto.getId() != null) this.id = dto.getId();
         this.logradouro = dto.getLogradouro();
         this.bairro = dto.getBairro();
         this.cep = dto.getCep();

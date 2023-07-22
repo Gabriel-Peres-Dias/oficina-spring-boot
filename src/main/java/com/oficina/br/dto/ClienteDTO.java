@@ -16,6 +16,7 @@ public class ClienteDTO {
     private String telefone;
     private String senha;
     private String cpf;
+    private boolean ativo;
     private EnderecoDTO enderecoDTO;
 
     public ClienteDTO(Cliente cliente) {
@@ -25,5 +26,6 @@ public class ClienteDTO {
         this.telefone = cliente.getTelefone();
         this.senha = cliente.getSenha();
         this.cpf = cliente.getCpf();
+        this.ativo = cliente.isAtivo();
     }
 }

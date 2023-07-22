@@ -24,11 +24,12 @@ public class Cliente {
     private boolean ativo;
 
     public Cliente(ClienteDTO dto) {
+        if (dto.getId() != null) this.id = dto.getId();
         this.nome = dto.getNome();
         this.email = dto.getEmail();
         this.telefone = dto.getTelefone();
         this.senha = dto.getSenha();
         this.cpf = dto.getCpf();
-        this.ativo = true;
+        this.ativo = dto.isAtivo();
     }
 }

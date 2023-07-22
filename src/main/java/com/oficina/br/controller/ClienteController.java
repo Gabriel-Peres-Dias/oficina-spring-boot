@@ -35,4 +35,15 @@ public class ClienteController {
         UriComponents uriComponents = uriComponentsBuilder.path("cliente/{id}").buildAndExpand(idCliente);
         return ResponseEntity.created(uriComponents.toUri()).body(clienteDTO);
     }
+
+    @PutMapping
+    public ResponseEntity<ClienteDTO> editarCliente(@RequestBody ClienteDTO clienteDTO) {
+        return ResponseEntity.ok(clienteService.salvarCliente(clienteDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desativarCliente(@PathVariable Long id) {
+        clienteService.desativarCliente(id);
+        return ResponseEntity.noContent().build();
+    }
 }

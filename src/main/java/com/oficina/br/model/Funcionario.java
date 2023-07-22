@@ -19,7 +19,5 @@ public class Funcionario {
     private String email;
     private String cpf;
     private String matricula;
-    @OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Endereco endereco;
     private boolean ativo;
 }

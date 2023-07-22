@@ -1,5 +1,6 @@
 package com.oficina.br.model;
 
+import com.oficina.br.dto.ClienteDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +21,14 @@ public class Cliente {
     private String telefone;
     private String senha;
     private String cpf;
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Endereco endereco;
     private boolean ativo;
 
+    public Cliente(ClienteDTO dto) {
+        this.nome = dto.getNome();
+        this.email = dto.getEmail();
+        this.telefone = dto.getTelefone();
+        this.senha = dto.getSenha();
+        this.cpf = dto.getCpf();
+        this.ativo = true;
+    }
 }

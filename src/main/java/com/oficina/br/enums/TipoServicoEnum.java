@@ -1,6 +1,6 @@
 package com.oficina.br.enums;
 
-public enum ServicoEnum {
+public enum TipoServicoEnum {
     TIRA_RISCOS(1L, "Tira Riscos"),
     REVITALIZACAO_PINTURA(2L, "Revitalização de pintura"),
     POLIMENTO_CRISTALIZADO(3L, "Polimento Cristalizado"),
@@ -11,7 +11,7 @@ public enum ServicoEnum {
     private final Long id;
     private final String nome;
 
-     ServicoEnum(Long id, String nome) {
+     TipoServicoEnum(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }

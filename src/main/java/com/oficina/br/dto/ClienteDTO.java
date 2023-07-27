@@ -1,6 +1,9 @@
 package com.oficina.br.dto;
 
 import com.oficina.br.model.Cliente;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +17,19 @@ import lombok.Setter;
 public class ClienteDTO {
 
     private Long id;
+    @NotEmpty(message = "Nome é obrigatório.")
     private String nome;
+    @NotEmpty(message = "E-mail é obrigatório.")
+    @Email(message = "Formato do e-mail inválido")
     private String email;
+    @NotEmpty(message = "Telefone é obrigatório.")
     private String telefone;
+    @NotEmpty(message = "Senha é obrigatório.")
     private String senha;
+    @NotEmpty(message = "CPF é obrigatório.")
     private String cpf;
     private boolean ativo;
+    @Valid
     private EnderecoDTO enderecoDTO;
 
     public ClienteDTO(Cliente cliente) {

@@ -2,6 +2,7 @@ package com.oficina.br.controller;
 
 import com.oficina.br.dto.FuncionarioDTO;
 import com.oficina.br.service.FuncionarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,14 +38,14 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity<FuncionarioDTO> salvarFuncionario(@RequestBody FuncionarioDTO funcionarioDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<FuncionarioDTO> salvarFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO, UriComponentsBuilder uriComponentsBuilder) {
         var idFuncionario = funcionarioService.salvarFuncionario(funcionarioDTO).getId();
         UriComponents uriComponents = uriComponentsBuilder.path("funcionario/{id}").buildAndExpand(idFuncionario);
         return ResponseEntity.created(uriComponents.toUri()).body(funcionarioDTO);
     }
 
     @PutMapping
-    public ResponseEntity<FuncionarioDTO> editarFuncionario(@RequestBody FuncionarioDTO funcionarioDTO) {
+    public ResponseEntity<FuncionarioDTO> editarFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO) {
         return ResponseEntity.ok(funcionarioService.salvarFuncionario(funcionarioDTO));
     }
 

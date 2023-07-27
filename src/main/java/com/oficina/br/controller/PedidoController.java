@@ -2,6 +2,7 @@ package com.oficina.br.controller;
 
 import com.oficina.br.dto.PedidoDTO;
 import com.oficina.br.service.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,14 +38,14 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDTO> salvarPedido(@RequestBody PedidoDTO pedidoDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<PedidoDTO> salvarPedido(@RequestBody @Valid PedidoDTO pedidoDTO, UriComponentsBuilder uriComponentsBuilder) {
         final var idPedido = pedidoService.salvarPedido(pedidoDTO).getId();
         UriComponents uriComponents = uriComponentsBuilder.path("pedido/{id}").buildAndExpand(idPedido);
         return ResponseEntity.created(uriComponents.toUri()).body(pedidoDTO);
     }
 
     @PutMapping
-    public ResponseEntity<PedidoDTO> editarPedido(@RequestBody PedidoDTO pedidoDTO) {
+    public ResponseEntity<PedidoDTO> editarPedido(@RequestBody @Valid PedidoDTO pedidoDTO) {
         return ResponseEntity.ok(pedidoService.editarPedido(pedidoDTO));
     }
 

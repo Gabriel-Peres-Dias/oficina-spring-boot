@@ -43,4 +43,16 @@ public class EnderecoService {
         }
         return enderecoDTO;
     }
+
+    @Transactional(readOnly = true)
+    public EnderecoDTO buscarEnderecoDeClientePorId(Long idCliente) {
+        final var endereco = enderecoRepository.getEnderecoByClienteId(idCliente);
+        return new EnderecoDTO(endereco);
+    }
+
+    @Transactional(readOnly = true)
+    public EnderecoDTO buscarEnderecoDeFuncionarioPorId(Long idFuncionario) {
+        final var endereco = enderecoRepository.getEnderecoByFuncionarioId(idFuncionario);
+        return new EnderecoDTO(endereco);
+    }
 }

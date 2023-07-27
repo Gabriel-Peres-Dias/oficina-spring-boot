@@ -1,5 +1,6 @@
 package com.oficina.br.model;
 
+import com.oficina.br.dto.PedidoDTO;
 import com.oficina.br.enums.StatusServicoEnum;
 import com.oficina.br.enums.TipoServicoEnum;
 import jakarta.persistence.Column;
@@ -35,12 +36,18 @@ public class Pedido {
     @ManyToOne
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "id_tipo_servico")
-    private TipoServicoEnum tipoServicoEnum;
+    private Long idTipoServico;
     private double valor;
     private LocalDateTime data;
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "id_status_servico")
-    private StatusServicoEnum statusServicoEnum;
+    private Long idTipoStatusServico;
+
+    public Pedido(PedidoDTO pedidoDTO) {
+        this.id = pedidoDTO.getId();
+        this.cliente = new Cliente(pedidoDTO.getClienteDTO());
+        this.funcionario = new Funcionario(pedidoDTO.getFuncionarioDTO());
+        this.idTipoServico = pedidoDTO.getIdTipoServico();
+        this.valor = pedidoDTO.getValor();
+        this.data = pedidoDTO.getData();
+        this.idTipoStatusServico = pedidoDTO.getIdTipoStatusServico();
+    }
 }

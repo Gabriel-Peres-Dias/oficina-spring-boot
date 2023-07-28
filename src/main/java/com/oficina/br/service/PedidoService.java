@@ -34,21 +34,10 @@ public class PedidoService {
     }
 
     @Transactional
-    public PedidoDTO salvarPedido(PedidoDTO pedidoDTO) {
+    public void salvarPedido(PedidoDTO pedidoDTO) {
         log.info("salvando pedido");
         final var pedido = new Pedido(pedidoDTO);
-        var pedidoSalvo = pedidoRepository.save(pedido);
-        pedidoDTO.setId(pedidoSalvo.getId());
-        montarEndereco(pedidoDTO);
-        return pedidoDTO;
-    }
-
-    @Transactional
-    public PedidoDTO editarPedido(PedidoDTO pedidoDTO) {
-        log.info("editando pedido");
-        final var pedido = new Pedido(pedidoDTO);
         pedidoRepository.save(pedido);
-        return pedidoDTO;
     }
 
     @Transactional

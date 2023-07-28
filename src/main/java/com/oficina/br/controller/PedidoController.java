@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -38,15 +36,15 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDTO> salvarPedido(@RequestBody @Valid PedidoDTO pedidoDTO, UriComponentsBuilder uriComponentsBuilder) {
-        final var idPedido = pedidoService.salvarPedido(pedidoDTO).getId();
-        UriComponents uriComponents = uriComponentsBuilder.path("pedido/{id}").buildAndExpand(idPedido);
-        return ResponseEntity.created(uriComponents.toUri()).body(pedidoDTO);
+    public ResponseEntity<Void> salvarPedido(@RequestBody @Valid PedidoDTO pedidoDTO) {
+        pedidoService.salvarPedido(pedidoDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public ResponseEntity<PedidoDTO> editarPedido(@RequestBody @Valid PedidoDTO pedidoDTO) {
-        return ResponseEntity.ok(pedidoService.editarPedido(pedidoDTO));
+    public ResponseEntity<Void> editarPedido(@RequestBody @Valid PedidoDTO pedidoDTO) {
+        pedidoService.salvarPedido(pedidoDTO);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/ativar/{id}")

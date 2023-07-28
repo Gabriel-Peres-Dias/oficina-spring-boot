@@ -28,20 +28,15 @@ public class EnderecoService {
     }
 
     @Transactional
-    public EnderecoDTO salvarEndereco(EnderecoDTO enderecoDTO, Cliente cliente, Funcionario funcionario) {
-        //TODO: criar uma regra para validacão
-        //throw new IllegalArgumentException("Falha ao salvar endereço: enderecoDTO, cliente ou funcionario podem estar nulos");
+    public void salvarEndereco(EnderecoDTO enderecoDTO, Cliente cliente, Funcionario funcionario) {
         log.info("salvando endereco");
         if (Objects.nonNull(cliente) && Objects.nonNull(enderecoDTO)) {
             var endereco = new Endereco(enderecoDTO, cliente);
-            var enderecoSalvo = enderecoRepository.save(endereco);
-            enderecoDTO.setId(enderecoSalvo.getId());
+            enderecoRepository.save(endereco);
         } else if(Objects.nonNull(funcionario) && Objects.nonNull(enderecoDTO)) {
             var endereco = new Endereco(enderecoDTO, funcionario);
-            var enderecoSalvo = enderecoRepository.save(endereco);
-            enderecoDTO.setId(enderecoSalvo.getId());
+            enderecoRepository.save(endereco);
         }
-        return enderecoDTO;
     }
 
     @Transactional(readOnly = true)

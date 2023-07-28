@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteDTO>> buscarTodos(){
+    public ResponseEntity<List<ClienteDTO>> buscarTodos() {
         return ResponseEntity.ok(clienteService.buscarTodos());
     }
 
@@ -38,15 +36,15 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> salvar(@RequestBody @Valid ClienteDTO clienteDTO, UriComponentsBuilder uriComponentsBuilder) {
-        var idCliente = clienteService.salvarCliente(clienteDTO).getId();
-        UriComponents uriComponents = uriComponentsBuilder.path("cliente/{id}").buildAndExpand(idCliente);
-        return ResponseEntity.created(uriComponents.toUri()).body(clienteDTO);
+    public ResponseEntity<Void> salvar(@RequestBody @Valid ClienteDTO clienteDTO) {
+        clienteService.salvarCliente(clienteDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public ResponseEntity<ClienteDTO> editarCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
-        return ResponseEntity.ok(clienteService.salvarCliente(clienteDTO));
+    public ResponseEntity<Void> editarCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
+        clienteService.salvarCliente(clienteDTO);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

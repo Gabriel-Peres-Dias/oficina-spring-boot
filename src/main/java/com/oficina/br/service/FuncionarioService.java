@@ -34,18 +34,15 @@ public class FuncionarioService {
     }
 
     @Transactional
-    public FuncionarioDTO salvarFuncionario(FuncionarioDTO funcionarioDTO) {
+    public void salvarFuncionario(FuncionarioDTO funcionarioDTO) {
         log.info("salvando funcionario");
         var funcionario = new Funcionario(funcionarioDTO);
         if (funcionario.getId() == null) {
             funcionario.setAtivo(true);
         }
 
-        var funcionarioSalvo = funcionarioRepository.save(funcionario);
-        funcionarioDTO.setId(funcionarioSalvo.getId());
-        funcionarioDTO.setAtivo(funcionarioSalvo.isAtivo());
-        funcionarioDTO.getEnderecoDTO().setId((enderecoService.salvarEndereco(funcionarioDTO.getEnderecoDTO(), null, funcionarioSalvo).getId()));
-        return funcionarioDTO;
+        final var funcionarioSalvo = funcionarioRepository.save(funcionario);
+        enderecoService.salvarEndereco(funcionarioDTO.getEnderecoDTO(), null, funcionarioSalvo);
     }
 
     @Transactional

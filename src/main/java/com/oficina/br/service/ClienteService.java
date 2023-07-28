@@ -34,7 +34,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public ClienteDTO salvarCliente(ClienteDTO clienteDTO) {
+    public void salvarCliente(ClienteDTO clienteDTO) {
         log.info("salvando cliente");
         var cliente = new Cliente(clienteDTO);
         if (cliente.getId() == null) {
@@ -42,10 +42,7 @@ public class ClienteService {
         }
 
         var clienteSalvo = clienteRepository.save(cliente);
-        clienteDTO.setId(clienteSalvo.getId());
-        clienteDTO.setAtivo(clienteDTO.isAtivo());
-        clienteDTO.getEnderecoDTO().setId((enderecoService.salvarEndereco(clienteDTO.getEnderecoDTO(), clienteSalvo, null).getId()));
-        return clienteDTO;
+        enderecoService.salvarEndereco(clienteDTO.getEnderecoDTO(), clienteSalvo, null);
     }
 
     @Transactional

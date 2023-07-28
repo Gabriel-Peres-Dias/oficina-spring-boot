@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -38,15 +36,15 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity<FuncionarioDTO> salvarFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO, UriComponentsBuilder uriComponentsBuilder) {
-        var idFuncionario = funcionarioService.salvarFuncionario(funcionarioDTO).getId();
-        UriComponents uriComponents = uriComponentsBuilder.path("funcionario/{id}").buildAndExpand(idFuncionario);
-        return ResponseEntity.created(uriComponents.toUri()).body(funcionarioDTO);
+    public ResponseEntity<Void> salvarFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO) {
+        funcionarioService.salvarFuncionario(funcionarioDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public ResponseEntity<FuncionarioDTO> editarFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO) {
-        return ResponseEntity.ok(funcionarioService.salvarFuncionario(funcionarioDTO));
+    public ResponseEntity<Void> editarFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO) {
+        funcionarioService.salvarFuncionario(funcionarioDTO);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

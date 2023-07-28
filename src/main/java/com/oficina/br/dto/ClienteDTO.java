@@ -1,5 +1,6 @@
 package com.oficina.br.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oficina.br.model.Cliente;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -30,6 +31,7 @@ public class ClienteDTO {
     private String cpf;
     private boolean ativo;
     @Valid
+    @JsonProperty("endereco")
     private EnderecoDTO enderecoDTO;
 
     public ClienteDTO(Cliente cliente) {

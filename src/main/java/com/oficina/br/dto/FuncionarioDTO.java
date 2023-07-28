@@ -1,5 +1,6 @@
 package com.oficina.br.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oficina.br.model.Funcionario;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -28,6 +29,7 @@ public class FuncionarioDTO {
     private String matricula;
     private boolean ativo;
     @Valid
+    @JsonProperty("endereco")
     private EnderecoDTO enderecoDTO;
 
     public FuncionarioDTO(Funcionario funcionario) {

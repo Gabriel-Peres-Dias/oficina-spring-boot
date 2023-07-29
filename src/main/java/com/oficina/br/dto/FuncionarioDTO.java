@@ -27,6 +27,8 @@ public class FuncionarioDTO {
     @NotEmpty(message = "Matrícula é obrigatória.")
     @Length(min = 5, max = 5, message = "O tamanho da matrícula deve ser 5.")
     private String matricula;
+    @NotEmpty(message = "Senha é obrigatória.")
+    private String senha;
     private boolean ativo;
     @Valid
     @JsonProperty("endereco")
@@ -38,6 +40,7 @@ public class FuncionarioDTO {
         this.email = funcionario.getEmail();
         this.cpf = funcionario.getCpf();
         this.matricula = funcionario.getMatricula();
+        this.senha = funcionario.getSenha();
         this.ativo = funcionario.isAtivo();
     }
 }

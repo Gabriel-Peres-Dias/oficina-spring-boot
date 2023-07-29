@@ -24,6 +24,7 @@ public class Funcionario {
     private String email;
     private String cpf;
     private String matricula;
+    private String senha;
     private boolean ativo;
 
     public Funcionario(FuncionarioDTO funcionarioDTO) {
@@ -32,6 +33,7 @@ public class Funcionario {
         this.email = funcionarioDTO.getEmail();
         this.cpf = funcionarioDTO.getCpf();
         this.matricula = funcionarioDTO.getMatricula();
+        this.senha = funcionarioDTO.getSenha();
         this.ativo = funcionarioDTO.isAtivo();
     }
 }

@@ -23,7 +23,6 @@ public class Cliente {
     private String nome;
     private String email;
     private String telefone;
-    private String senha;
     private String cpf;
     private boolean ativo;
 
@@ -32,7 +31,6 @@ public class Cliente {
         this.nome = dto.getNome();
         this.email = dto.getEmail();
         this.telefone = dto.getTelefone();
-        this.senha = dto.getSenha();
         this.cpf = dto.getCpf();
         this.ativo = dto.isAtivo();
     }

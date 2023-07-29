@@ -1,6 +1,7 @@
 package com.oficina.br.controller;
 
 import com.oficina.br.dto.FuncionarioDTO;
+import com.oficina.br.dto.LoginFuncionarioDTO;
 import com.oficina.br.service.FuncionarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -53,5 +54,10 @@ public class FuncionarioController {
     public ResponseEntity<Void> desativarFuncionario(@PathVariable Long id) {
         funcionarioService.desativarFuncionarioPorId(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/login")
+    public ResponseEntity<Boolean> autenticarUsuario(@RequestBody LoginFuncionarioDTO loginFuncionarioDTO) {
+        return ResponseEntity.ok(funcionarioService.logarFuncionario(loginFuncionarioDTO));
     }
 }

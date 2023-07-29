@@ -22,8 +22,14 @@ public class EnderecoService {
     }
 
     @Transactional(readOnly = true)
-    public EnderecoDTO buscarEnderecoPorId(Long id) {
-        var endereco = enderecoRepository.getReferenceById(id);
+    public EnderecoDTO buscarEnderecoPorIdFuncionario(Long id) {
+        var endereco = enderecoRepository.getEnderecoByFuncionarioId(id);
+        return new EnderecoDTO(endereco);
+    }
+
+    @Transactional(readOnly = true)
+    public EnderecoDTO buscarEnderecoPorIdCliente(Long id) {
+        var endereco = enderecoRepository.getEnderecoByClienteId(id);
         return new EnderecoDTO(endereco);
     }
 

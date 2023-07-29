@@ -52,7 +52,7 @@ public class ClienteService {
 
     private ClienteDTO montarCliente(Cliente cliente) {
         var clienteDTO = new ClienteDTO(cliente);
-        clienteDTO.setEnderecoDTO(enderecoService.buscarEnderecoPorId(clienteDTO.getId()));
+        clienteDTO.setEnderecoDTO(enderecoService.buscarEnderecoPorIdCliente(clienteDTO.getId()));
         return clienteDTO;
     }
 }

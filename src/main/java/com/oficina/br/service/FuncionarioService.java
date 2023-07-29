@@ -1,6 +1,7 @@
 package com.oficina.br.service;
 
 import com.oficina.br.dto.FuncionarioDTO;
+import com.oficina.br.dto.LoginFuncionarioDTO;
 import com.oficina.br.model.Funcionario;
 import com.oficina.br.repository.FuncionarioRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +46,12 @@ public class FuncionarioService {
         enderecoService.salvarEndereco(funcionarioDTO.getEnderecoDTO(), null, funcionarioSalvo);
     }
 
+    @Transactional(readOnly = true)
+    public boolean logarFuncionario(LoginFuncionarioDTO loginFuncionarioDTO) {
+        final var funcionario = funcionarioRepository.findFuncionarioByEmailAndSenha(loginFuncionarioDTO.getEmail(), loginFuncionarioDTO.getSenha());
+        return funcionario != null;
+    }
+
     @Transactional
     public void desativarFuncionarioPorId(Long id) {
         funcionarioRepository.desativarFuncionario(id);
@@ -52,7 +59,7 @@ public class FuncionarioService {
 
     private FuncionarioDTO montarFuncionario(Funcionario funcionario) {
         var funcionarioDTO = new FuncionarioDTO(funcionario);
-        funcionarioDTO.setEnderecoDTO(enderecoService.buscarEnderecoPorId(funcionarioDTO.getId()));
+        funcionarioDTO.setEnderecoDTO(enderecoService.buscarEnderecoPorIdFuncionario(funcionarioDTO.getId()));
         return funcionarioDTO;
     }
 }

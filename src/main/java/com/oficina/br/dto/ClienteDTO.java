@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,8 +24,6 @@ public class ClienteDTO {
     private String email;
     @NotEmpty(message = "Telefone é obrigatório.")
     private String telefone;
-    @NotEmpty(message = "Senha é obrigatório.")
-    private String senha;
     @NotEmpty(message = "CPF é obrigatório.")
     private String cpf;
     private boolean ativo;
@@ -39,7 +36,6 @@ public class ClienteDTO {
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();
         this.telefone = cliente.getTelefone();
-        this.senha = cliente.getSenha();
         this.cpf = cliente.getCpf();
         this.ativo = cliente.isAtivo();
     }

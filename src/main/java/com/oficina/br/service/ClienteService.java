@@ -1,6 +1,7 @@
 package com.oficina.br.service;
 
 import com.oficina.br.dto.ClienteDTO;
+import com.oficina.br.mapper.ClienteMapper;
 import com.oficina.br.model.Cliente;
 import com.oficina.br.repository.ClienteRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public List<ClienteDTO> buscarTodos(){
+    public List<ClienteDTO> buscarTodos() {
         var list = clienteRepository.findAll();
         return list.stream().map(this::montarCliente).toList();
     }
@@ -36,12 +37,12 @@ public class ClienteService {
     @Transactional
     public void salvarCliente(ClienteDTO clienteDTO) {
         log.info("salvando cliente");
-        var cliente = new Cliente(clienteDTO);
+        Cliente cliente = ClienteMapper.INSTANCE.toClienteEntity(clienteDTO);
         if (cliente.getId() == null) {
             cliente.setAtivo(true);
         }
 
-        var clienteSalvo = clienteRepository.save(cliente);
+        final var clienteSalvo = clienteRepository.save(cliente);
         enderecoService.salvarEndereco(clienteDTO.getEnderecoDTO(), clienteSalvo, null);
     }
 
@@ -51,7 +52,7 @@ public class ClienteService {
     }
 
     private ClienteDTO montarCliente(Cliente cliente) {
-        var clienteDTO = new ClienteDTO(cliente);
+        var clienteDTO = ClienteMapper.INSTANCE.toClienteDTO(cliente);
         clienteDTO.setEnderecoDTO(enderecoService.buscarEnderecoPorIdCliente(clienteDTO.getId()));
         return clienteDTO;
     }

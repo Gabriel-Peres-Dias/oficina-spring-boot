@@ -2,6 +2,7 @@ package com.oficina.br.service;
 
 import com.oficina.br.dto.FuncionarioDTO;
 import com.oficina.br.dto.LoginFuncionarioDTO;
+import com.oficina.br.mapper.FuncionarioMapper;
 import com.oficina.br.model.Funcionario;
 import com.oficina.br.repository.FuncionarioRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class FuncionarioService {
     @Transactional
     public void salvarFuncionario(FuncionarioDTO funcionarioDTO) {
         log.info("salvando funcionario");
-        var funcionario = new Funcionario(funcionarioDTO);
+        var funcionario = FuncionarioMapper.INSTANCE.toFuncinarioEntity(funcionarioDTO);
         if (funcionario.getId() == null) {
             funcionario.setAtivo(true);
         }
@@ -58,7 +59,7 @@ public class FuncionarioService {
     }
 
     private FuncionarioDTO montarFuncionario(Funcionario funcionario) {
-        var funcionarioDTO = new FuncionarioDTO(funcionario);
+        var funcionarioDTO = FuncionarioMapper.INSTANCE.toFuncionarioDTO(funcionario);
         funcionarioDTO.setEnderecoDTO(enderecoService.buscarEnderecoPorIdFuncionario(funcionarioDTO.getId()));
         return funcionarioDTO;
     }

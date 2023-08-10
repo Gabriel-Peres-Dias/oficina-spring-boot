@@ -57,7 +57,7 @@ public class FuncionarioController {
     }
 
     @PutMapping("/login")
-    public ResponseEntity<Boolean> autenticarUsuario(@RequestBody LoginFuncionarioDTO loginFuncionarioDTO) {
+    public ResponseEntity<FuncionarioDTO> autenticarUsuario(@RequestBody LoginFuncionarioDTO loginFuncionarioDTO) {
         return ResponseEntity.ok(funcionarioService.logarFuncionario(loginFuncionarioDTO));
     }
 }

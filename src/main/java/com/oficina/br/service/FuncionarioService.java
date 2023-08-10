@@ -48,9 +48,9 @@ public class FuncionarioService {
     }
 
     @Transactional(readOnly = true)
-    public boolean logarFuncionario(LoginFuncionarioDTO loginFuncionarioDTO) {
+    public FuncionarioDTO logarFuncionario(LoginFuncionarioDTO loginFuncionarioDTO) {
         final var funcionario = funcionarioRepository.findFuncionarioByEmailAndSenha(loginFuncionarioDTO.getEmail(), loginFuncionarioDTO.getSenha());
-        return funcionario != null;
+        return montarFuncionario(funcionario);
     }
 
     @Transactional

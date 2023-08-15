@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -49,8 +50,8 @@ public class FuncionarioService {
 
     @Transactional(readOnly = true)
     public FuncionarioDTO logarFuncionario(LoginFuncionarioDTO loginFuncionarioDTO) {
-        final var funcionario = funcionarioRepository.findFuncionarioByEmailAndSenha(loginFuncionarioDTO.getEmail(), loginFuncionarioDTO.getSenha());
-        return montarFuncionario(funcionario);
+        final Optional<Funcionario> funcionario = funcionarioRepository.findFuncionarioByEmailAndSenha(loginFuncionarioDTO.getEmail(), loginFuncionarioDTO.getSenha());
+        return funcionario.map(this::montarFuncionario).orElse(null);
     }
 
     @Transactional

@@ -1,5 +1,7 @@
 package com.oficina.br.service;
 
+import com.oficina.br.client.viacep.EnderecoResponseDTO;
+import com.oficina.br.client.viacep.ViaCepClient;
 import com.oficina.br.dto.EnderecoDTO;
 import com.oficina.br.mapper.EnderecoMapper;
 import com.oficina.br.model.Cliente;
@@ -16,9 +18,11 @@ import java.util.Objects;
 public class EnderecoService {
 
     private final EnderecoRepository enderecoRepository;
+    private final ViaCepClient viaCepClient;
 
-    public EnderecoService(EnderecoRepository enderecoRepository) {
+    public EnderecoService(EnderecoRepository enderecoRepository, ViaCepClient viaCepClient) {
         this.enderecoRepository = enderecoRepository;
+        this.viaCepClient = viaCepClient;
     }
 
     @Transactional(readOnly = true)
@@ -57,5 +61,12 @@ public class EnderecoService {
     public EnderecoDTO buscarEnderecoDeFuncionarioPorId(Long idFuncionario) {
         final var endereco = enderecoRepository.getEnderecoByFuncionarioId(idFuncionario);
         return EnderecoMapper.INSTANCE.toEnderecoDTO(endereco);
+    }
+
+    public EnderecoResponseDTO buscarEnderecoPorCep(String cep) {
+        if (cep != null) {
+            return viaCepClient.getEndereco(cep);
+        }
+        return null;
     }
 }
